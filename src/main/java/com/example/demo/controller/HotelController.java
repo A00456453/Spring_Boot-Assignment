@@ -1,8 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.HotelModel;
+import com.example.demo.model.*;
 import com.example.demo.service.HotelService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,7 @@ public class HotelController {
     private HotelService hotelService;
 
     @GetMapping("/hotels")
-    public ResponseEntity<List<Object>> getHotels() {
+    public ResponseEntity<HotelList> getHotels() {
         return new ResponseEntity(hotelService.getHotels(), HttpStatus.OK);
     }
 
@@ -30,4 +29,8 @@ public class HotelController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @PostMapping("/reservation")
+    public ResponseEntity<ConfirmReservationResponse> confirmReservation(@RequestBody ConfirmReservationRequest confirmReservationRequest) {
+        return new ResponseEntity(hotelService.confirmReservation(confirmReservationRequest), HttpStatus.OK);
+    }
 }
